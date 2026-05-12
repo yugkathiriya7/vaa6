@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Story — 6 Months</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- YouTube IFrame API — needed for song playback on hover -->
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<style>
+:root {
+  --red:   #e50914;
+  --dark:  #0a0a0a;
+  --dark2: #111;
+  --card:  #181818;
+  --text:  #fff;
+  --muted: rgba(255,255,255,.55);
+  --tulip: #e8758a;
+  --font-d: 'Bebas Neue', cursive;
+  --font-b: 'Cormorant Garamond', serif;
+  --font-u: 'Inter', sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--dark);color:var(--text);
+  font-family:var(--font-u);overflow-x:hidden;
+  user-select:none;-webkit-user-select:none;
+}
+
+img,video{pointer-events:none;-webkit-user-drag:none;-webkit-touch-callout:none}
+
+/* ── LOADER ── */
+#loader{
+  position:fixed;inset:0;z-index:9999;background:#000;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+  transition:opacity .8s,visibility .8s;
+}
+#loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-n{
+  font-family:var(--font-d);font-size:min(22vw,200px);color:var(--red);line-height:1;
+  text-shadow:0 0 80px rgba(229,9,20,.5);
+  animation:nBounce .7s cubic-bezier(.36,.07,.19,.97) both;
+}
+@keyframes nBounce{0%{transform:scale(.3);opacity:0}70%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
+.loader-bar-wrap{width:200px;height:2px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
+.loader-bar{height:100%;background:var(--red);border-radius:2px;animation:loadBar 2.5s ease forwards}
+@keyframes loadBar{from{width:0}to{width:100%}}
+.loader-tagline{font-family:var(--font-b);font-style:italic;color:var(--muted);font-size:16px;letter-spacing:1px}
+
+/* ── NAVBAR ── */
+#navbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 4vw;height:68px;
+  background:linear-gradient(to bottom,rgba(0,0,0,.95),transparent);
+  transition:background .3s;
+}
+#navbar.scrolled{background:rgba(10,10,10,.97)}
+.nav-logo{font-family:var(--font-d);font-size:36px;color:var(--red);letter-spacing:-1px;cursor:pointer}
+.nav-logo span{color:var(--text);font-size:13px;letter-spacing:3px;font-family:var(--font-u);font-weight:300;margin-left:10px;vertical-align:middle}
+.nav-months{display:flex;gap:6px;flex-wrap:wrap}
+.nav-month-btn{
+  background:none;border:1px solid rgba(255,255,255,.2);color:var(--muted);
+  font-family:var(--font-u);font-size:11px;letter-spacing:1px;padding:5px 11px;
+  cursor:pointer;border-radius:3px;transition:all .25s;
+}
+.nav-month-btn:hover,.nav-month-btn.active{background:var(--red);border-color:var(--red);color:#fff}
+
+/* ── HERO ── */
+#hero{
+  position:relative;height:100vh;min-height:600px;
+  overflow:hidden;display:flex;align-items:flex-end;
+}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(0,0,0,.88) 35%,transparent 70%),
+             linear-gradient(to top,rgba(0,0,0,.92) 18%,transparent 55%);
+}
+.hero-content{position:relative;z-index:2;padding:0 6vw 8vh;max-width:680px}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red);font-family:var(--font-u);
+  font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;
+  padding:5px 14px;margin-bottom:1.2rem;
+  animation:fadeUp .6s ease both;
+}
+.hero-badge::before{
+  content:'';display:block;width:6px;height:6px;border-radius:50%;
+  background:#fff;animation:blink 1.4s infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-title{
+  font-family:var(--font-d);font-size:clamp(54px,9vw,110px);line-height:.92;
+  animation:fadeUp .7s ease .1s both;
+}
+.hero-title .accent{color:var(--tulip);display:block}
+.hero-meta-row{
+  display:flex;align-items:center;gap:14px;margin:1.2rem 0;
+  font-size:13px;animation:fadeUp .7s ease .2s both;
+}
+.hero-match{color:#4ade80;font-weight:500}
+.hero-desc{
+  font-family:var(--font-b);font-size:clamp(16px,2vw,20px);line-height:1.65;
+  color:rgba(255,255,255,.82);margin-bottom:2rem;
+  animation:fadeUp .7s ease .3s both;
+}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .7s ease .4s both}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:12px 28px;font-family:var(--font-u);font-size:15px;font-weight:500;
+  border:none;cursor:pointer;border-radius:3px;transition:all .2s;text-decoration:none;
+}
+.btn-play{background:var(--text);color:#000}
+.btn-play:hover{background:rgba(255,255,255,.85)}
+.btn-info{background:rgba(109,109,110,.7);color:#fff;backdrop-filter:blur(4px)}
+.btn-info:hover{background:rgba(109,109,110,.5)}
+.btn svg{width:20px;height:20px;fill:currentColor;flex-shrink:0}
+.hero-month-deco{
+  position:absolute;top:50%;right:4vw;transform:translateY(-50%);
+  text-align:right;z-index:2;animation:fadeIn 1s ease .8s both;
+}
+.hero-month-deco-num{
+  font-family:var(--font-d);font-size:clamp(100px,18vw,200px);
+  color:rgba(255,255,255,.04);line-height:1;display:block;
+}
+.hero-month-deco-sub{
+  font-family:var(--font-b);font-style:italic;
+  color:var(--tulip);font-size:clamp(14px,2vw,20px);letter-spacing:2px;
+}
+
+/* ═══════════════════════════════════════════
+   MONTH CARDS — Netflix hover with preview
+═══════════════════════════════════════════ */
+.months-row{padding:1.5rem 4vw 2rem}
+.row-header{display:flex;align-items:baseline;gap:16px;margin-bottom:1rem}
+.row-title{font-family:var(--font-d);font-size:clamp(18px,2.5vw,26px);letter-spacing:1px}
+.row-title .ma{color:var(--tulip)}
+
+.months-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:8px;
+}
+@media(max-width:900px){.months-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:500px){.months-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ── The card ── */
+.month-card{
+  position:relative;aspect-ratio:2/3;border-radius:6px;
+  overflow:hidden;cursor:pointer;
+  transition:transform .4s cubic-bezier(.25,.46,.45,.94),
+             box-shadow .4s,z-index 0s .4s;
+}
+
+/* Netflix expand on hover — needs overflow visible on parent */
+.months-grid{overflow:visible;position:relative}
+
+.month-card:hover{
+  transform:scale(1.28) translateY(-8px);
+  box-shadow:0 24px 70px rgba(0,0,0,.85),0 0 0 2px var(--red);
+  z-index:50;
+  transition:transform .4s cubic-bezier(.25,.46,.45,.94),
+             box-shadow .4s,z-index 0s;
+}
+.month-card:first-child:hover{transform-origin:left center;transform:scale(1.28) translateY(-8px) translateX(10%)}
+.month-card:last-child:hover{transform-origin:right center;transform:scale(1.28) translateY(-8px) translateX(-10%)}
+
+/* cover image (shown before hover) */
+.mc-cover{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;
+  transition:opacity .4s;
+  z-index:1;
+}
+
+/* ── PREVIEW VIDEO inside card ── */
+.mc-preview-video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;
+  opacity:0;
+  transition:opacity .5s ease .3s;
+  z-index:2;
+}
+.month-card:hover .mc-preview-video{opacity:1}
+.month-card:hover .mc-cover{opacity:0}
+
+/* gradient + info always on top */
+.mc-gradient{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.95) 30%,rgba(0,0,0,.2) 70%,transparent 100%);
+  z-index:3;
+  opacity:1;
+  transition:opacity .3s;
+}
+
+.mc-content{
+  position:absolute;bottom:0;left:0;right:0;padding:1rem .8rem;z-index:4;
+  transform:translateY(0);transition:transform .35s ease;
+}
+.month-card:hover .mc-content{transform:translateY(-4px)}
+
+.mc-num{font-family:var(--font-d);font-size:48px;color:var(--red);line-height:.9;text-shadow:0 0 30px rgba(229,9,20,.4)}
+.mc-name{font-family:var(--font-d);font-size:15px;letter-spacing:2px;color:rgba(255,255,255,.9);margin-top:2px}
+.mc-sub{font-family:var(--font-b);font-style:italic;font-size:11px;color:var(--tulip);margin-top:2px}
+
+/* Extra hover info row (plays/like buttons + song title) */
+.mc-hover-bar{
+  position:absolute;bottom:0;left:0;right:0;padding:.6rem .8rem .8rem;
+  z-index:5;
+  display:flex;flex-direction:column;gap:6px;
+  opacity:0;transform:translateY(6px);
+  transition:opacity .3s ease .25s,transform .3s ease .25s;
+}
+.month-card:hover .mc-hover-bar{opacity:1;transform:none}
+
+.mc-actions{display:flex;align-items:center;gap:7px}
+.mc-btn{
+  width:28px;height:28px;border-radius:50%;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:12px;
+  transition:background .2s;pointer-events:all;
+}
+.mc-btn-play{background:#fff;color:#000;font-size:11px}
+.mc-btn-play:hover{background:rgba(255,255,255,.85)}
+.mc-btn-like{background:rgba(255,255,255,.15);color:#fff}
+.mc-btn-like:hover{background:rgba(255,255,255,.25)}
+
+.mc-song-name{
+  font-family:var(--font-u);font-size:9px;letter-spacing:1px;
+  color:rgba(255,255,255,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  display:flex;align-items:center;gap:5px;
+}
+.mc-song-name::before{
+  content:'♪';color:var(--tulip);font-size:11px;
+  animation:none;flex-shrink:0;
+}
+.month-card:hover .mc-song-name::before{animation:musicPulse .8s ease-in-out infinite}
+@keyframes musicPulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.2);opacity:1}}
+
+/* Volume mute button (absolute top-right on hover) */
+.mc-mute-btn{
+  position:absolute;top:10px;right:10px;z-index:6;
+  width:28px;height:28px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.4);
+  background:rgba(0,0,0,.6);color:#fff;
+  font-size:13px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .3s ease .3s;
+  pointer-events:all;
+}
+.month-card:hover .mc-mute-btn{opacity:1}
+
+/* ── Hidden YouTube iframes container ── */
+#yt-container{
+  position:fixed;bottom:-200px;left:-200px;
+  width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden;
+  z-index:-1;
+}
+
+/* ── Song now-playing indicator (corner of screen) ── */
+#now-playing{
+  position:fixed;bottom:24px;left:24px;z-index:300;
+  background:rgba(0,0,0,.85);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.1);
+  border-left:3px solid var(--tulip);
+  padding:10px 16px;border-radius:4px;
+  display:flex;align-items:center;gap:10px;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .4s,transform .4s;
+  pointer-events:none;
+  max-width:280px;
+}
+#now-playing.visible{opacity:1;transform:none}
+.np-icon{color:var(--tulip);font-size:16px;animation:spin 3s linear infinite}
+@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+.np-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.np-label{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.np-song{font-family:var(--font-b);font-style:italic;font-size:13px;color:#fff;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ── TULIP BANNER ── */
+.tulip-banner{
+  padding:5rem 4vw;text-align:center;position:relative;overflow:hidden;
+}
+.tulip-banner::before{
+  content:'🌷';position:absolute;font-size:300px;opacity:.04;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+}
+.tb-label{font-size:11px;letter-spacing:4px;color:var(--tulip);text-transform:uppercase;margin-bottom:1rem}
+.tb-quote{
+  font-family:var(--font-b);font-style:italic;
+  font-size:clamp(22px,4vw,44px);max-width:720px;margin:0 auto 1rem;line-height:1.4;
+}
+.tb-sub{font-size:13px;color:var(--muted);font-family:var(--font-b)}
+
+/* ── CAROUSEL ROWS ── */
+.row-section{padding:1.5rem 4vw}
+.row-explore{
+  font-family:var(--font-u);font-size:11px;color:#54b3d6;letter-spacing:2px;cursor:pointer;
+  opacity:0;transform:translateX(-8px);transition:opacity .3s,transform .3s;
+}
+.row-header:hover .row-explore{opacity:1;transform:none}
+.row-carousel-wrap{position:relative}
+.row-carousel{
+  display:flex;gap:6px;overflow-x:auto;scroll-behavior:smooth;
+  scrollbar-width:none;padding-bottom:4px;overflow-y:visible;
+}
+.row-carousel::-webkit-scrollbar{display:none}
+.carousel-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:48px;height:100%;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.7);cursor:pointer;z-index:10;
+  opacity:0;transition:opacity .25s;border:none;color:#fff;font-size:22px;
+}
+.carousel-arrow.left{left:0}.carousel-arrow.right{right:0}
+.row-carousel-wrap:hover .carousel-arrow{opacity:1}
+
+/* Small media card (for highlights / videos rows) */
+.media-card{
+  flex-shrink:0;width:250px;position:relative;cursor:pointer;
+  border-radius:4px;overflow:visible;
+  transition:transform .35s cubic-bezier(.25,.46,.45,.94),z-index 0s .35s;
+}
+.media-card:hover{transform:scale(1.18);z-index:50;transition:transform .35s,z-index 0s}
+.media-card:first-child:hover{transform-origin:left center}
+.media-card:last-child:hover{transform-origin:right center}
+.media-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;border-radius:4px}
+.card-type-badge{
+  position:absolute;top:8px;left:8px;background:rgba(0,0,0,.7);color:#fff;
+  font-size:10px;letter-spacing:1px;padding:3px 7px;border-radius:2px;
+  backdrop-filter:blur(4px);pointer-events:none;z-index:5;
+}
+.media-hover{
+  position:absolute;top:100%;left:0;right:0;
+  background:var(--card);border-radius:0 0 6px 6px;padding:12px 14px 14px;
+  box-shadow:0 14px 40px rgba(0,0,0,.8);
+  opacity:0;transform:translateY(-4px);transition:opacity .25s,transform .25s;
+  pointer-events:none;z-index:60;
+}
+.media-card:hover .media-hover{opacity:1;transform:none;pointer-events:all}
+.mh-actions{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.mh-btn{
+  width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  border:none;cursor:pointer;font-size:14px;transition:background .2s;
+}
+.mh-play{background:#fff;color:#000}.mh-play:hover{background:rgba(255,255,255,.8)}
+.mh-like{background:rgba(255,255,255,.15);color:#fff}.mh-like:hover{background:rgba(255,255,255,.25)}
+.mh-title{font-family:var(--font-b);font-size:14px;font-weight:600;margin-bottom:4px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mh-meta{font-size:11px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
+.mh-quote{
+  font-family:var(--font-b);font-style:italic;font-size:12px;color:var(--tulip);
+  margin-top:6px;line-height:1.4;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+
+/* ── MONTH DETAIL PAGE ── */
+#month-page{display:none;min-height:100vh}
+#month-page.open{display:block}
+.mp-hero{
+  position:relative;height:60vh;min-height:400px;
+  overflow:hidden;display:flex;align-items:flex-end;
+}
+.mp-hero-bg{
+  position:absolute;inset:0;display:grid;
+  grid-template-columns:repeat(4,1fr);gap:3px;
+  filter:blur(2px) brightness(.4);transform:scale(1.04);
+}
+.mp-hero-bg img{width:100%;height:100%;object-fit:cover}
+.mp-hero-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,var(--dark) 10%,transparent 60%),
+             linear-gradient(to right,rgba(0,0,0,.7),transparent 60%);
+}
+.mp-hero-content{position:relative;z-index:2;padding:0 6vw 5vh}
+.mp-back{
+  display:inline-flex;align-items:center;gap:8px;
+  background:none;border:none;color:var(--muted);
+  font-family:var(--font-u);font-size:13px;cursor:pointer;padding:0;margin-bottom:1rem;
+  transition:color .2s;
+}
+.mp-back:hover{color:#fff}
+.mp-num{font-family:var(--font-d);font-size:clamp(80px,16vw,160px);color:var(--red);line-height:.85;text-shadow:0 0 60px rgba(229,9,20,.3)}
+.mp-name{font-family:var(--font-d);font-size:clamp(28px,5vw,60px);letter-spacing:2px}
+.mp-sub{font-family:var(--font-b);font-style:italic;font-size:clamp(14px,2vw,19px);color:var(--tulip);margin-top:.4rem}
+.mp-quote-band{
+  background:var(--dark2);border-top:1px solid rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.06);padding:2.5rem 6vw;text-align:center;
+}
+.mp-quote-band p{
+  font-family:var(--font-b);font-style:italic;
+  font-size:clamp(20px,3vw,36px);color:rgba(255,255,255,.88);
+  max-width:700px;margin:0 auto .8rem;line-height:1.5;
+}
+.mp-quote-band cite{font-size:12px;letter-spacing:3px;color:var(--tulip);text-transform:uppercase;font-style:normal}
+.mp-grid-section{padding:3rem 4vw}
+.mp-grid-label{
+  font-family:var(--font-d);font-size:20px;letter-spacing:2px;color:rgba(255,255,255,.7);
+  margin-bottom:1rem;display:flex;align-items:center;gap:10px;
+}
+.mp-grid-label::before{content:'';display:block;width:4px;height:1.1em;background:var(--red);flex-shrink:0}
+.mp-masonry{columns:3;column-gap:6px}
+@media(max-width:700px){.mp-masonry{columns:2}}
+@media(max-width:420px){.mp-masonry{columns:1}}
+.mp-item{break-inside:avoid;margin-bottom:6px;position:relative;cursor:pointer;border-radius:4px;overflow:hidden}
+.mp-item img,.mp-item video{width:100%;display:block;border-radius:4px;transition:transform .4s,filter .4s}
+.mp-item:hover img,.mp-item:hover video{transform:scale(1.03);filter:brightness(1.1)}
+.mp-item-ov{
+  position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 50%);
+  opacity:0;transition:opacity .3s;z-index:3;display:flex;align-items:flex-end;padding:12px;
+}
+.mp-item:hover .mp-item-ov{opacity:1}
+.mp-item-cap{font-family:var(--font-b);font-style:italic;font-size:13px;color:rgba(255,255,255,.85)}
+.mp-videos{padding:2rem 4vw 4rem}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+.video-card{position:relative;cursor:pointer;border-radius:6px;overflow:hidden;background:var(--card)}
+.video-card video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.video-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.video-play-ov{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.35);transition:background .25s;
+}
+.video-card:hover .video-play-ov{background:rgba(0,0,0,.15)}
+.play-circle{
+  width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.9);
+  display:flex;align-items:center;justify-content:center;font-size:22px;color:#000;
+  transition:transform .25s;
+}
+.video-card:hover .play-circle{transform:scale(1.1)}
+.video-cap{padding:12px;font-family:var(--font-b);font-size:14px;color:var(--muted);font-style:italic}
+
+/* ── LIGHTBOX ── */
+#lightbox{
+  position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.96);
+  display:none;align-items:center;justify-content:center;flex-direction:column;
+  padding:4vh 4vw;overflow-y:auto;
+}
+#lightbox.open{display:flex}
+.lb-close{
+  position:fixed;top:20px;right:24px;background:rgba(255,255,255,.1);
+  border:none;color:#fff;width:44px;height:44px;border-radius:50%;
+  font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  z-index:10;transition:background .2s;
+}
+.lb-close:hover{background:rgba(255,255,255,.25)}
+.lb-inner{width:100%;max-width:960px;animation:lbIn .3s ease both}
+@keyframes lbIn{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+.lb-media{width:100%;border-radius:6px;overflow:hidden;background:#000;position:relative}
+.lb-media::after{content:'';position:absolute;inset:0;background:transparent;z-index:2}
+.lb-media img,.lb-media video{width:100%;max-height:70vh;object-fit:contain;display:block}
+.lb-info{padding:1.5rem 0 0}
+.lb-month-tag{font-size:11px;letter-spacing:3px;color:var(--tulip);text-transform:uppercase;margin-bottom:8px}
+.lb-title{font-family:var(--font-b);font-size:clamp(22px,3vw,34px);font-weight:600;margin-bottom:.5rem}
+.lb-quote{
+  font-family:var(--font-b);font-style:italic;font-size:clamp(16px,2vw,22px);
+  color:var(--tulip);border-left:3px solid var(--tulip);
+  padding-left:1rem;margin:1rem 0;line-height:1.6;
+}
+.lb-nav{display:flex;gap:12px;margin-top:1.5rem}
+.lb-nav-btn{
+  flex:1;background:rgba(255,255,255,.08);border:none;color:#fff;
+  padding:12px;border-radius:4px;font-family:var(--font-u);font-size:13px;
+  cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.lb-nav-btn:hover{background:rgba(255,255,255,.18)}
+.lb-nav-btn:disabled{opacity:.3;cursor:default}
+
+/* ── FOOTER ── */
+footer{background:#000;padding:4rem 4vw 3rem;text-align:center;border-top:1px solid rgba(255,255,255,.05)}
+.footer-n{font-family:var(--font-d);font-size:54px;color:var(--red);letter-spacing:-1px}
+.footer-tagline{font-family:var(--font-b);font-style:italic;color:var(--muted);font-size:15px;margin:.5rem 0 2rem}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.12);letter-spacing:2px}
+
+.red-rule{height:1px;background:linear-gradient(to right,transparent,var(--red),transparent);margin:0 4vw}
+
+@keyframes fadeUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--dark2)}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:3px}
+</style>
+</head>
+<body>
+
+<!-- ═══ PHOTO PROTECTION ═══ -->
+<script>
+  document.addEventListener('contextmenu',e=>e.preventDefault());
+  document.addEventListener('keydown',e=>{
+    if((e.ctrlKey||e.metaKey)&&'supajSUPAJ'.includes(e.key))e.preventDefault();
+    if(e.key==='F12'||((e.ctrlKey||e.metaKey)&&e.shiftKey&&'icIC'.includes(e.key)))e.preventDefault();
+  });
+  document.addEventListener('dragstart',e=>{if(['IMG','VIDEO'].includes(e.target.tagName))e.preventDefault()});
+</script>
+
+<!-- ═══ HIDDEN YOUTUBE PLAYERS (for song audio on hover) ═══ -->
+<div id="yt-container"></div>
+
+<!-- ═══ NOW-PLAYING INDICATOR ═══ -->
+<div id="now-playing">
+  <span class="np-icon">♪</span>
+  <div class="np-text">
+    <span class="np-label">Now Playing</span>
+    <span class="np-song" id="np-song-name">—</span>
+  </div>
+</div>
+
+<!-- ═══ LOADER ═══ -->
+<div id="loader">
+  <div class="loader-n">N</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <!-- 🖊️ EDIT tagline -->
+  <p class="loader-tagline">Our story is loading… 🌷</p>
+</div>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav id="navbar">
+  <div class="nav-logo" onclick="goHome()">N <span>OUR STORY</span></div>
+  <div class="nav-months" id="nav-months"></div>
+</nav>
+
+<!-- ═══════════════════════════════════
+     HOME PAGE
+═══════════════════════════════════ -->
+<div id="home-page">
+
+  <!-- HERO -->
+  <section id="hero">
+    <!--
+    🖼️ HERO IMAGE — replace src with your best photo
+    Ideal: a wide landscape photo, or her facing slightly left
+    Path: photos/hero.jpg
+    -->
+    <img class="hero-img"
+      src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=1800&q=85"
+      alt="Our story">
+    <!-- ^ Replace with: src="photos/hero.jpg" -->
+
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Now Streaming</div>
+      <!-- 🖊️ EDIT: your names -->
+      <h1 class="hero-title">Our Story<span class="accent">6 Months 🌷</span></h1>
+      <div class="hero-meta-row">
+        <span class="hero-match">💚 100% Match</span>
+        <span style="color:var(--muted)">·</span>
+        <span>6 Chapters</span>
+        <span style="color:var(--muted)">·</span>
+        <!-- 🖊️ EDIT: your start date -->
+        <span>Since Nov 2024</span>
+      </div>
+      <!-- 🖊️ EDIT: your opening line -->
+      <p class="hero-desc">
+        Six months of laughter, tulips, random videos, and a love that keeps surprising me every day.
+        This is our story — all of it, exactly as it happened.
+      </p>
+      <div class="hero-btns">
+        <button class="btn btn-play" onclick="openMonth(0)">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          Start From Month 1
+        </button>
+        <button class="btn btn-info" onclick="document.getElementById('months-section').scrollIntoView({behavior:'smooth'})">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          All Months
+        </button>
+      </div>
+    </div>
+    <div class="hero-month-deco">
+      <span class="hero-month-deco-num">6</span>
+      <span class="hero-month-deco-sub">months of us 🌷</span>
+    </div>
+  </section>
+
+  <!-- 6 MONTH CARDS -->
+  <div class="months-row" id="months-section">
+    <div class="row-header">
+      <span class="row-title">Our <span class="ma">Six Chapters</span></span>
+    </div>
+    <!--
+      Hover over any month card → preview video plays + Bollywood song fades in
+      Exactly like Netflix trailers
+    -->
+    <div class="months-grid" id="months-grid"></div>
+  </div>
+
+  <div class="red-rule"></div>
+
+  <!-- TULIP QUOTE -->
+  <div class="tulip-banner">
+    <p class="tb-label">For you 🌷</p>
+    <!-- 🖊️ EDIT: a quote she loves -->
+    <p class="tb-quote">"Like tulips turning toward the light, I find myself always turning toward you."</p>
+    <p class="tb-sub">— Every single day since we started</p>
+  </div>
+
+  <div class="red-rule"></div>
+
+  <!-- HIGHLIGHTS ROW -->
+  <div class="row-section">
+    <div class="row-header">
+      <span class="row-title">🌷 Her Favourite Moments</span>
+      <span class="row-explore">Explore All</span>
+    </div>
+    <div class="row-carousel-wrap">
+      <button class="carousel-arrow left" onclick="scrollRow(this,-1)">‹</button>
+      <div class="row-carousel" id="highlights-row"></div>
+      <button class="carousel-arrow right" onclick="scrollRow(this,1)">›</button>
+    </div>
+  </div>
+
+  <!-- VIDEOS ROW -->
+  <div class="row-section">
+    <div class="row-header">
+      <span class="row-title">🎬 Random Little Videos</span>
+      <span class="row-explore">See All</span>
+    </div>
+    <div class="row-carousel-wrap">
+      <button class="carousel-arrow left" onclick="scrollRow(this,-1)">‹</button>
+      <div class="row-carousel" id="videos-row"></div>
+      <button class="carousel-arrow right" onclick="scrollRow(this,1)">›</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-n">N</div>
+    <!-- 🖊️ EDIT tagline -->
+    <p class="footer-tagline">An original love story. Still streaming. 🌷</p>
+    <p class="footer-copy">© OUR STORY — MADE WITH 🌷 FOR YOU</p>
+  </footer>
+</div>
+
+<!-- ═══ MONTH DETAIL PAGE ═══ -->
+<div id="month-page"></div>
+
+<!-- ═══ LIGHTBOX ═══ -->
+<div id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <div class="lb-inner">
+    <div class="lb-media" id="lb-media-wrap"></div>
+    <div class="lb-info">
+      <div class="lb-month-tag" id="lb-month-tag"></div>
+      <div class="lb-title" id="lb-title"></div>
+      <div class="lb-quote" id="lb-quote"></div>
+      <div class="lb-nav">
+        <button class="lb-nav-btn" id="lb-prev" onclick="lbNav(-1)">‹ Previous</button>
+        <button class="lb-nav-btn" id="lb-next" onclick="lbNav(1)">Next ›</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+  ████████████████████████████████████████████████████████████
+  ████         E D I T   E V E R Y T H I N G   B E L O W  ████
+  ████████████████████████████████████████████████████████████
+
+  HOW THE SONG PREVIEW WORKS (like Netflix):
+  ─────────────────────────────────────────
+  When you hover a month card for ~1.2 seconds:
+    1. A short preview VIDEO clip fades in over the cover photo
+    2. The Bollywood SONG from YouTube fades in softly
+    3. The "Now Playing" bar appears bottom-left
+    4. When you move away → song fades out, video pauses
+
+  For the preview video:
+    → Put a short 6-15 second clip in media/month1/preview.mp4
+    → It loops silently while the YouTube song plays as audio
+    → If you don't have a preview clip, the cover photo stays + song still plays
+
+  For the YouTube song:
+    → Just paste the YouTube video ID (the part after "v=" in the URL)
+    → Example: https://youtu.be/EBRvmc3VarQ → ID is "EBRvmc3VarQ"
+
+  ═══════════════════════════════════════════════════════════════ -->
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  MONTHS DATA
+//  🖊️ Edit each month below — comments show exactly what to change
+// ═══════════════════════════════════════════════════════════════
+
+const MONTHS = [
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // MONTH 1
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {
+    name: "November",
+    theme: "The Beginning",
+    dateRange: "November 2024",
+
+    // 🎵 SONG — YouTube video ID for hover preview audio
+    // This is "Chahvan Sohneya" as you requested
+    // To change: go to YouTube → copy the ID from the URL after "v="
+    songYtId: "EBRvmc3VarQ",
+    songName: "Chahvan Sohneya — Danny & Madhubanti Bagchi",
+
+    // 🎬 PREVIEW VIDEO — short 6-15s clip shown on hover (like Netflix trailer)
+    // HOW TO ADD: put clip in media/month1/preview.mp4
+    // Leave empty string "" if you don't have one yet — song still plays
+    previewVideo: "",
+    // ^ Replace with: "media/month1/preview.mp4"
+
+    // 🖼️ COVER — the poster shown on the month card
+    // Replace with: "photos/month1/cover.jpg"
+    coverImg: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&q=75",
+
+    // 🖊️ Big quote shown on month detail page
+    quote: "Some people arrive and make such a beautiful impact on your life, you can barely remember what it was like without them.",
+
+    // 🖊️ 2-3 sentences about this month
+    desc: "The month everything started. Nervous texts, first laughs, and realising something was very different this time. We were just figuring it all out — and it was perfect.",
+
+    // 🖼️ PHOTOS — add as many as you want
+    // src: "photos/month1/1.jpg"   ← your photo path
+    // caption: shown on hover
+    // quote: shown when opened fullscreen
+    photos: [
+      { src:"https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=500&q=70", caption:"Day one 🌷", quote:"I knew from that first moment." },
+      { src:"https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=500&q=70", caption:"Our first photo together", quote:"Still my favourite one." },
+      { src:"https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=500&q=70", caption:"You and your tulips 🌷", quote:"You light up like nobody I've ever seen." },
+      { src:"https://images.unsplash.com/photo-1513001900722-370f803f498d?w=500&q=70", caption:"Late night walks", quote:"Time stops when I'm with you." },
+      { src:"https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500&q=70", caption:"That laugh 😂", quote:"Best sound in the world." },
+    ],
+
+    // 🎬 VIDEOS — her random clips for this month
+    // src: "media/month1/vid1.mp4"
+    // poster: any photo as thumbnail
+    videos: [
+      { src:"", poster:"https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&q=60", caption:"You being silly in the kitchen 😂" },
+      { src:"", poster:"https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&q=60", caption:"That random dance you did" },
+    ]
+  },
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // MONTH 2
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {
+    name: "December",
+    theme: "Getting Closer",
+    dateRange: "December 2024",
+
+    // 🎵 SONG — replace with your preferred song's YouTube ID
+    // Currently: "Tum Hi Ho" — Arijit Singh (Aashiqui 2) — classic romantic
+    // 🖊️ Change to any Bollywood song you want for this month
+    songYtId: "Umqb9alkOSE",
+    songName: "Tum Hi Ho — Arijit Singh",
+
+    previewVideo: "",  // "media/month2/preview.mp4"
+    coverImg: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=600&q=75",
+    quote: "In December the world is quiet, but wherever you are feels like the warmest place on earth.",
+    desc: "December was cosy and warm in the best way. Christmas lights, hot drinks, and getting to know every little thing about you. This was the month I stopped pretending I wasn't falling.",
+    photos: [
+      { src:"https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=500&q=70", caption:"Christmas vibes ❄️", quote:"The best Christmas I've had." },
+      { src:"https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=500&q=70", caption:"Snowy walks", quote:"Your nose was so red 😂 it was adorable." },
+      { src:"https://images.unsplash.com/photo-1536236408190-b3f20f2b3c0c?w=500&q=70", caption:"Warm evenings", quote:"I never wanted to leave." },
+      { src:"https://images.unsplash.com/photo-1543332164-6e82f355badc?w=500&q=70", caption:"Your favourite café ☕", quote:"You and your oat milk lattes." },
+    ],
+    videos: [
+      { src:"", poster:"https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&q=60", caption:"You opening your little Christmas gift 🎁" },
+    ]
+  },
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // MONTH 3
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {
+    name: "January",
+    theme: "New Year, New Us",
+    dateRange: "January 2025",
+
+    // 🎵 "Kal Ho Naa Ho" — Sonu Nigam (uplifting, hopeful — perfect for new year)
+    // 🖊️ Change to your preferred song
+    songYtId: "vFdYdRFHqh0",
+    songName: "Kal Ho Naa Ho — Sonu Nigam",
+
+    previewVideo: "",
+    coverImg: "https://images.unsplash.com/photo-1467190048845-25b1b0c8cd9b?w=600&q=75",
+    quote: "Every new year I wish for the same thing — more time with you.",
+    desc: "New year, same feelings — but bigger. January made everything feel official. Like we weren't just something that happened over winter, we were something real.",
+    photos: [
+      { src:"https://images.unsplash.com/photo-1467190048845-25b1b0c8cd9b?w=500&q=70", caption:"New Year countdown 🎆", quote:"There was nobody else I wanted to be with at midnight." },
+      { src:"https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=500&q=70", caption:"Our 2025 goals 😂", quote:"Mostly: spend more time together." },
+      { src:"https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=500&q=70", caption:"January tulips 🌷", quote:"You said they were too early. I said they were perfect — like you." },
+      { src:"https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?w=500&q=70", caption:"Lazy Sunday mornings", quote:"Let's have a thousand more of these." },
+    ],
+    videos: [
+      { src:"", poster:"https://images.unsplash.com/photo-1467190048845-25b1b0c8cd9b?w=400&q=60", caption:"You pretending you knew the words to that song 🎵" },
+      { src:"", poster:"https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=400&q=60", caption:"Flower market trip with you 🌷" },
+    ]
+  },
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // MONTH 4
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {
+    name: "February",
+    theme: "Just in Love",
+    dateRange: "February 2025",
+
+    // 🎵 "Raataan Lambiyan" — Jubin Nautiyal (romantic, soft)
+    // 🖊️ Change to your preferred song
+    songYtId: "aIGFcl7Wnlc",
+    songName: "Raataan Lambiyan — Jubin Nautiyal",
+
+    previewVideo: "",
+    coverImg: "https://images.unsplash.com/photo-1518895312237-a9e23508077d?w=600&q=75",
+    quote: "My love for you is a tulip in February — early, brave, and entirely certain.",
+    desc: "Valentine's month, obviously. But every day with you already feels like that. February was silly and sweet and I wouldn't change a single minute of it.",
+    photos: [
+      { src:"https://images.unsplash.com/photo-1518895312237-a9e23508077d?w=500&q=70", caption:"Valentine's Day 💕", quote:"You were embarrassed by all the flowers. I knew you loved it." },
+      { src:"https://images.unsplash.com/photo-1490750967868-88df5691cc5c?w=500&q=70", caption:"Tulips in bloom 🌷", quote:"Your face when I gave them to you." },
+      { src:"https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=500&q=70", caption:"Our dinner", quote:"You laughed so hard you cried. At nothing. I love you." },
+      { src:"https://images.unsplash.com/photo-1538125218651-e70b65f9e5cf?w=500&q=70", caption:"Heart eyes 💕", quote:"Always." },
+    ],
+    videos: [
+      { src:"", poster:"https://images.unsplash.com/photo-1518895312237-a9e23508077d?w=400&q=60", caption:"Your reaction to the surprise 🌷" },
+    ]
+  },
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // MONTH 5
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {
+    name: "March",
+    theme: "Spring & Everything",
+    dateRange: "March 2025",
+
+    // 🎵 "Kesariya" — Arijit Singh (Brahmastra) — dreamy, spring-like
+    // 🖊️ Change to your preferred song
+    songYtId: "BddP6PYo2gs",
+    songName: "Kesariya — Arijit Singh",
+
+    previewVideo: "",
+    coverImg: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=75",
+    quote: "Spring is when you feel like whistling even with a shoe full of slush — but I feel that way because of you.",
+    desc: "March brought colour back into everything. Long walks, spontaneous plans, and you getting excited every time you saw a flower. Watching the world come alive with you felt like the most natural thing.",
+    photos: [
+      { src:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500&q=70", caption:"Spring walks 🌸", quote:"You said 'wait I want to look at this' about every single flower." },
+      { src:"https://images.unsplash.com/photo-1422190441165-ec2956dc9ecc?w=500&q=70", caption:"Tulip fields 🌷", quote:"We drove an hour for these. Worth it." },
+      { src:"https://images.unsplash.com/photo-1490750967868-88df5691cc5c?w=500&q=70", caption:"You in the garden", quote:"Standing in the sun. Glowing." },
+      { src:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=70", caption:"Golden afternoon", quote:"Everything was golden, especially you." },
+    ],
+    videos: [
+      { src:"", poster:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&q=60", caption:"You spotting the tulip field and screaming 😂" },
+      { src:"", poster:"https://images.unsplash.com/photo-1422190441165-ec2956dc9ecc?w=400&q=60", caption:"Dancing in the field when you thought nobody was watching" },
+    ]
+  },
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // MONTH 6 — The Anniversary Month
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {
+    name: "April",
+    theme: "Six Months of You",
+    dateRange: "April 2025",
+
+    // 🎵 "Ae Dil Hai Mushkil" — Arijit Singh (emotional, grand, perfect for 6 months)
+    // 🖊️ Change to your preferred song
+    songYtId: "6FURuLBSV0s",
+    songName: "Ae Dil Hai Mushkil — Arijit Singh",
+
+    previewVideo: "",
+    coverImg: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=75",
+    quote: "Six months isn't very long. But with you, it already feels like home.",
+    desc: "Half a year of the most beautiful chaos. Six months of you — your laugh, your tulips, your random videos, your everything. Here's to every month after this one.",
+    photos: [
+      { src:"https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=500&q=70", caption:"6 months 🌷", quote:"You. Every single day." },
+      { src:"https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&q=70", caption:"Our celebration", quote:"Felt like the beginning of everything." },
+      { src:"https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500&q=70", caption:"Then and now", quote:"I'd choose you again every time." },
+      { src:"https://images.unsplash.com/photo-1536236408190-b3f20f2b3c0c?w=500&q=70", caption:"To many more 💕", quote:"Just getting started." },
+    ],
+    videos: [
+      { src:"", poster:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&q=60", caption:"Your face when you found this website 😂" },
+    ]
+  }
+];
+
+// ═══════════════════════════════════════════════════════
+//  HIGHLIGHTS — cards shown on home page "Favourites" row
+//  { monthIndex: 0-5, photoIndex: 0-n, label: "title" }
+//  🖊️ Change these to reference your favourite photos
+// ═══════════════════════════════════════════════════════
+const HIGHLIGHTS = [
+  { monthIndex:0, photoIndex:2, label:"You & Tulips 🌷" },
+  { monthIndex:1, photoIndex:0, label:"December Magic" },
+  { monthIndex:2, photoIndex:2, label:"January Flowers" },
+  { monthIndex:3, photoIndex:1, label:"Valentine's 💕" },
+  { monthIndex:4, photoIndex:1, label:"Tulip Fields" },
+  { monthIndex:5, photoIndex:0, label:"6 Months 🌷" },
+  { monthIndex:0, photoIndex:4, label:"That Laugh 😂" },
+  { monthIndex:4, photoIndex:3, label:"Golden Hour" },
+];
+
+const TULIP_QUOTES = [
+  "Like tulips turning to the light, I always turn to you.",
+  "You're my favourite thing that ever happened.",
+  "Every day with you is the day I would have chosen.",
+  "I'm so glad you're mine.",
+  "You laugh like nobody's watching. I watch every time.",
+  "Six months down. A lifetime to go.",
+  "Still my favourite notification. Still my favourite person.",
+  "You have no idea how much I smile because of you.",
+];
+
+// ═══════════════════════════════════════════════════════
+//  YOUTUBE PLAYER SYSTEM
+//  Manages all 6 hidden YouTube players for song previews
+// ═══════════════════════════════════════════════════════
+
+const ytPlayers = {};          // { ytId: YT.Player }
+let activeYtId   = null;       // currently playing
+let hoverTimer   = null;       // delay before song starts (like Netflix ~1.2s)
+let fadeInterval = null;       // for volume fade in/out
+let isMuted      = false;      // global mute toggle
+
+// Called by YouTube API when ready
+function onYouTubeIframeAPIReady() {
+  MONTHS.forEach(m => {
+    if (!m.songYtId) return;
+    const div = document.createElement('div');
+    div.id = 'yt-' + m.songYtId;
+    document.getElementById('yt-container').appendChild(div);
+
+    ytPlayers[m.songYtId] = new YT.Player('yt-' + m.songYtId, {
+      height:'1', width:'1',
+      videoId: m.songYtId,
+      playerVars: {
+        autoplay:0, controls:0, disablekb:1,
+        fs:0, modestbranding:1, rel:0, playsinline:1
+      },
+      events: {
+        onReady: e => {
+          e.target.setVolume(0);
+          e.target.mute();
+        }
+      }
+    });
+  });
+}
+
+function startSong(ytId, songName) {
+  if (activeYtId === ytId) return;
+  stopSong(false); // stop previous without delay
+
+  activeYtId = ytId;
+  const player = ytPlayers[ytId];
+  if (!player) return;
+
+  clearInterval(fadeInterval);
+  try {
+    player.unMute();
+    player.setVolume(0);
+    player.playVideo();
+  } catch(e) {}
+
+  let vol = 0;
+  fadeInterval = setInterval(() => {
+    vol = Math.min(vol + 4, isMuted ? 0 : 55); // fade to 55% volume
+    try { player.setVolume(vol); } catch(e){}
+    if (vol >= 55 || isMuted) clearInterval(fadeInterval);
+  }, 80);
+
+  // show now-playing bar
+  document.getElementById('np-song-name').textContent = songName;
+  document.getElementById('now-playing').classList.add('visible');
+}
+
+function stopSong(showDelay = true) {
+  if (!activeYtId) return;
+  const ytId = activeYtId;
+  const player = ytPlayers[ytId];
+  activeYtId = null;
+  clearInterval(fadeInterval);
+
+  if (!player) return;
+
+  let vol = 55;
+  fadeInterval = setInterval(() => {
+    vol = Math.max(vol - 6, 0);
+    try { player.setVolume(vol); } catch(e){}
+    if (vol <= 0) {
+      clearInterval(fadeInterval);
+      try { player.pauseVideo(); player.seekTo(0); } catch(e){}
+    }
+  }, 60);
+
+  document.getElementById('now-playing').classList.remove('visible');
+}
+
+function toggleMute() {
+  isMuted = !isMuted;
+  if (activeYtId && ytPlayers[activeYtId]) {
+    try {
+      if (isMuted) {
+        ytPlayers[activeYtId].setVolume(0);
+      } else {
+        ytPlayers[activeYtId].setVolume(55);
+      }
+    } catch(e){}
+  }
+  return isMuted;
+}
+
+// ═══════════════════════════════════════════════════════
+//  BUILD UI
+// ═══════════════════════════════════════════════════════
+
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('hidden'), 2800);
+  buildNav();
+  buildMonthCards();
+  buildHighlights();
+  buildVideosRow();
+});
+
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', scrollY > 80);
+});
+
+function buildNav() {
+  const wrap = document.getElementById('nav-months');
+  MONTHS.forEach((m,i) => {
+    const b = document.createElement('button');
+    b.className = 'nav-month-btn';
+    b.textContent = `M${i+1}`;
+    b.title = m.name;
+    b.onclick = () => openMonth(i);
+    wrap.appendChild(b);
+  });
+}
+
+function buildMonthCards() {
+  const grid = document.getElementById('months-grid');
+
+  MONTHS.forEach((m, i) => {
+    const card = document.createElement('div');
+    card.className = 'month-card';
+    card.dataset.monthIdx = i;
+
+    // Preview video element (hidden until hover)
+    const previewVideoEl = m.previewVideo
+      ? `<video class="mc-preview-video" src="${m.previewVideo}" loop muted playsinline preload="none"></video>`
+      : '';
+
+    card.innerHTML = `
+      <img class="mc-cover" src="${m.coverImg}" alt="${m.name}" loading="lazy">
+      ${previewVideoEl}
+      <div class="mc-gradient"></div>
+      <div class="mc-content">
+        <div class="mc-num">${i+1}</div>
+        <div class="mc-name">${m.name}</div>
+        <div class="mc-sub">${m.theme}</div>
+      </div>
+      <div class="mc-hover-bar">
+        <div class="mc-actions">
+          <button class="mc-btn mc-btn-play" title="Open Month ${i+1}" onclick="event.stopPropagation();openMonth(${i})">▶</button>
+          <button class="mc-btn mc-btn-like" title="Favourite 🌷">🌷</button>
+        </div>
+        <div class="mc-song-name">${m.songName || ''}</div>
+      </div>
+      <button class="mc-mute-btn" title="Mute/Unmute" onclick="event.stopPropagation();handleMute(this)">🔊</button>
+    `;
+
+    // ── HOVER EVENTS — Netflix behaviour ──
+    let enterTimer = null;
+
+    card.addEventListener('mouseenter', () => {
+      // Start preview video instantly (silent)
+      const vid = card.querySelector('.mc-preview-video');
+      if (vid && vid.src) {
+        vid.currentTime = 0;
+        vid.play().catch(()=>{});
+      }
+
+      // Delay song start by 1.2s (Netflix style)
+      clearTimeout(enterTimer);
+      enterTimer = setTimeout(() => {
+        if (m.songYtId) startSong(m.songYtId, m.songName);
+      }, 1200);
+    });
+
+    card.addEventListener('mouseleave', () => {
+      clearTimeout(enterTimer);
+
+      // Pause preview video
+      const vid = card.querySelector('.mc-preview-video');
+      if (vid) { vid.pause(); vid.currentTime = 0; }
+
+      // Stop song (fade out)
+      stopSong();
+    });
+
+    // Click opens the month
+    card.addEventListener('click', () => openMonth(i));
+
+    grid.appendChild(card);
+  });
+}
+
+function handleMute(btn) {
+  const muted = toggleMute();
+  btn.textContent = muted ? '🔇' : '🔊';
+}
+
+function buildHighlights() {
+  const row = document.getElementById('highlights-row');
+  HIGHLIGHTS.forEach(h => {
+    const m = MONTHS[h.monthIndex];
+    const p = m.photos[h.photoIndex];
+    if (!p) return;
+    row.innerHTML += `
+    <div class="media-card" onclick="openLightboxInMonth(${h.monthIndex},${h.photoIndex})">
+      <img class="media-thumb" src="${p.src}" alt="${h.label}" loading="lazy">
+      <div class="card-type-badge">📸 ${m.name}</div>
+      <div class="media-hover">
+        <div class="mh-actions">
+          <button class="mh-btn mh-play">▶</button>
+          <button class="mh-btn mh-like">🌷</button>
+        </div>
+        <div class="mh-title">${h.label}</div>
+        <div class="mh-meta"><span>${m.name}</span><span>·</span><span>${m.theme}</span></div>
+        <div class="mh-quote">${p.quote||''}</div>
+      </div>
+    </div>`;
+  });
+}
+
+function buildVideosRow() {
+  const row = document.getElementById('videos-row');
+  let n = 0;
+  MONTHS.forEach((m, mi) => {
+    m.videos.forEach((v, vi) => {
+      const thumb = v.poster || m.coverImg;
+      row.innerHTML += `
+      <div class="media-card" onclick="openMonthThenVideo(${mi},${vi})">
+        <img class="media-thumb" src="${thumb}" alt="${v.caption}" loading="lazy">
+        <div class="card-type-badge">🎬 Video</div>
+        <div class="media-hover">
+          <div class="mh-actions">
+            <button class="mh-btn mh-play">▶</button>
+            <button class="mh-btn mh-like">🌷</button>
+          </div>
+          <div class="mh-title">${v.caption}</div>
+          <div class="mh-meta"><span>${m.name}</span><span>·</span><span>${m.theme}</span></div>
+          <div class="mh-quote">${TULIP_QUOTES[n++ % TULIP_QUOTES.length]}</div>
+        </div>
+      </div>`;
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+//  MONTH DETAIL PAGE
+// ═══════════════════════════════════════════════════════
+
+function openMonth(i) {
+  stopSong();
+  const m = MONTHS[i];
+  const page = document.getElementById('month-page');
+
+  const photoItems = m.photos.map((p, pi) => `
+    <div class="mp-item" onclick="openLightboxInMonth(${i},${pi})">
+      <img src="${p.src}" alt="${p.caption}" loading="lazy">
+      <div class="mp-item-ov"><span class="mp-item-cap">${p.caption}</span></div>
+    </div>
+  `).join('');
+
+  const videoItems = m.videos.filter(v => v.src || v.poster).map((v, vi) => {
+    const media = v.src
+      ? `<video poster="${v.poster||''}" preload="none"><source src="${v.src}" type="video/mp4"></video>`
+      : `<img src="${v.poster}" alt="${v.caption}">`;
+    const safeCaption = v.caption.replace(/'/g,"\\'");
+    return `
+    <div class="video-card" onclick="playVideo('${v.src}','${v.poster||''}','${safeCaption}')">
+      ${media}
+      <div class="video-play-ov"><div class="play-circle">▶</div></div>
+      <div class="video-cap">${v.caption}</div>
+    </div>`;
+  }).join('');
+
+  const bgPhotos = m.photos.slice(0,4).map(p=>`<img src="${p.src}" alt="">`).join('');
+
+  const nextBtn = i < MONTHS.length - 1
+    ? `<div style="text-align:center;padding:3rem 4vw">
+        <p style="font-family:var(--font-b);font-style:italic;color:var(--muted);margin-bottom:1rem">Continue the story…</p>
+        <button class="btn btn-play" onclick="openMonth(${i+1})">▶ Month ${i+2} — ${MONTHS[i+1].name}</button>
+       </div>`
+    : `<div style="text-align:center;padding:5rem 4vw;background:var(--dark2)">
+        <div style="font-size:64px;margin-bottom:1rem">🌷</div>
+        <p style="font-family:var(--font-b);font-size:clamp(22px,3vw,36px);font-style:italic;margin-bottom:1rem">You've reached six months.</p>
+        <p style="font-family:var(--font-b);font-style:italic;color:var(--muted);font-size:18px;margin-bottom:2rem">And the story is only just beginning.</p>
+        <button class="btn btn-info" onclick="goHome()">↩ Back to Our Story</button>
+       </div>`;
+
+  page.innerHTML = `
+    <div class="mp-hero">
+      <div class="mp-hero-bg">${bgPhotos}</div>
+      <div class="mp-hero-ov"></div>
+      <div class="mp-hero-content">
+        <button class="mp-back" onclick="goHome()">‹ Back to All Months</button>
+        <div class="mp-num">${i+1}</div>
+        <div class="mp-name">${m.name} — ${m.theme}</div>
+        <div class="mp-sub">${m.dateRange} · ♪ ${m.songName}</div>
+      </div>
+    </div>
+    <div class="mp-quote-band">
+      <p>"${m.quote}"</p>
+      <cite>${m.name} · Month ${i+1}</cite>
+    </div>
+    <div class="mp-grid-section">
+      <div class="mp-grid-label">Photos from ${m.name}</div>
+      <p style="font-family:var(--font-b);font-style:italic;color:var(--muted);margin-bottom:1.5rem;font-size:16px">${m.desc}</p>
+      <div class="mp-masonry">${photoItems}</div>
+    </div>
+    ${videoItems ? `<div class="mp-videos"><div class="mp-grid-label">Videos 🎬</div><div class="video-grid">${videoItems}</div></div>` : ''}
+    ${nextBtn}
+  `;
+
+  document.getElementById('home-page').style.display = 'none';
+  page.classList.add('open');
+  document.querySelectorAll('.nav-month-btn').forEach((b,j) => b.classList.toggle('active', j===i));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goHome() {
+  stopSong();
+  document.getElementById('month-page').classList.remove('open');
+  document.getElementById('home-page').style.display = 'block';
+  document.querySelectorAll('.nav-month-btn').forEach(b => b.classList.remove('active'));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ═══════════════════════════════════════════════════════
+//  LIGHTBOX
+// ═══════════════════════════════════════════════════════
+
+let lbItems = [], lbIdx = 0;
+
+function openLightboxInMonth(mi, pi) {
+  const m = MONTHS[mi];
+  lbItems = m.photos.map(p=>({...p, monthName:m.name, monthTheme:m.theme, isVideo:false}));
+  lbIdx = pi;
+  renderLb();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderLb() {
+  const item = lbItems[lbIdx];
+  const wrap = document.getElementById('lb-media-wrap');
+  wrap.innerHTML = item.isVideo
+    ? `<video controls autoplay poster="${item.poster||''}"><source src="${item.src}" type="video/mp4"></video>`
+    : `<img src="${item.src}" alt="${item.caption||''}">`;
+  document.getElementById('lb-month-tag').textContent = `${item.monthName} · ${item.monthTheme}`;
+  document.getElementById('lb-title').textContent = item.caption||'';
+  document.getElementById('lb-quote').textContent = item.quote||'';
+  document.getElementById('lb-prev').disabled = lbIdx === 0;
+  document.getElementById('lb-next').disabled = lbIdx === lbItems.length-1;
+}
+
+function lbNav(dir) {
+  lbIdx = Math.max(0, Math.min(lbItems.length-1, lbIdx+dir));
+  renderLb();
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+  const vid = document.querySelector('#lb-media-wrap video');
+  if (vid) vid.pause();
+}
+
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+
+function openMonthThenVideo(mi, vi) {
+  openMonth(mi);
+  setTimeout(() => {
+    const v = MONTHS[mi].videos[vi];
+    if (v) playVideo(v.src, v.poster||'', v.caption);
+  }, 400);
+}
+
+function playVideo(src, poster, caption) {
+  lbItems = [{src, poster, caption, monthName:'Video Memory', monthTheme:'', isVideo:true, quote: TULIP_QUOTES[Math.floor(Math.random()*TULIP_QUOTES.length)]}];
+  lbIdx = 0;
+  renderLb();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function scrollRow(btn, dir) {
+  btn.parentElement.querySelector('.row-carousel').scrollBy({left:dir*760, behavior:'smooth'});
+}
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key==='ArrowRight') lbNav(1);
+  if (e.key==='ArrowLeft')  lbNav(-1);
+  if (e.key==='Escape')     closeLightbox();
+});
+</script>
+
+</body>
+</html>
